@@ -1,4 +1,4 @@
-package br.com.rodrigo.inclusao_operacao;
+package br.com.rodrigo.dataintegration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
