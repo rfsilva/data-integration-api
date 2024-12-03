@@ -2,7 +2,7 @@ version: '3.8'
 services:
   dataintegration-postgres:
     image: postgres:latest
-    container_name: postgres
+    container_name: dataintegration-postgres
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
@@ -16,7 +16,7 @@ services:
 
   dataintegration-mysql:
     image: mysql:latest
-    container_name: mysql
+    container_name: dataintegration-mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: testdb
@@ -27,7 +27,7 @@ services:
 
   dataintegration-rabbitmq:
     image: rabbitmq:management
-    container_name: rabbitmq
+    container_name: dataintegration-rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: password
@@ -39,7 +39,7 @@ services:
 
   dataintegration-kafka:
     image: bitnami/kafka:latest
-    container_name: kafka
+    container_name: dataintegration-kafka
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -51,7 +51,7 @@ services:
 
   dataintegration-zookeeper:
     image: bitnami/zookeeper:latest
-    container_name: zookeeper
+    container_name: dataintegration-zookeeper
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     ports:
@@ -59,13 +59,13 @@ services:
 
   dataintegration-redis:
     image: redis:latest
-    container_name: redis
+    container_name: dataintegration-redis
     ports:
       - "6379:6379"
 
   dataintegration-keycloak:
     image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak
+    container_name: dataintegration-keycloak
     command: start-dev
     environment:
       KEYCLOAK_ADMIN: admin
@@ -75,7 +75,7 @@ services:
 
   dataintegration-mongodb:
     image: mongo:6
-    container_name: mongodb
+    container_name: dataintegration-mongodb
     ports:
       - "27017:27017"
     volumes:
@@ -83,7 +83,7 @@ services:
 
   dataintegration-sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: dataintegration-sqlserver
     ports:
       - "1433:1433"
     environment:
