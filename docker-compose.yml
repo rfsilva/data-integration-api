@@ -35,27 +35,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - rabbitmq_data:/data/rabbit
-
-  dataintegration-kafka:
-    image: bitnami/kafka:latest
-    container_name: dataintegration-kafka
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      ALLOW_PLAINTEXT_LISTENER: "yes"
-    ports:
-      - "9092:9092"
-    depends_on:
-      - dataintegration-zookeeper
-
-  dataintegration-zookeeper:
-    image: bitnami/zookeeper:latest
-    container_name: dataintegration-zookeeper
-    environment:
-      ALLOW_ANONYMOUS_LOGIN: "yes"
-    ports:
-      - "2181:2181"
+      - rabbitmq_data:/var/lib/rabbitmq
 
   dataintegration-redis:
     image: redis:latest
@@ -72,6 +52,8 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: password
     ports:
       - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
 
   dataintegration-mongodb:
     image: mongo:6
@@ -90,12 +72,29 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "Password123!" # Altere para um valor seguro
       
+  dataintegration-oracle-db:
+    image: gvenzl/oracle-xe:18.4.0-slim
+    container_name: dataintegration-oracle-db
+    ports:
+      - "1521:1521" # Oracle default port
+    environment:
+      ORACLE_PASSWORD: admin # Replace with a strong password
+      ORACLE_CHARACTERSET: AL32UTF8 # Optional: Set character set
+    volumes:
+      - oracle_data:/opt/oracle/oradata # Persist data across container restarts
+    healthcheck:
+      test: ["CMD", "sh", "-c", "echo 'SELECT 1 FROM DUAL;' | sqlplus -s system/$ORACLE_PASSWORD@localhost:1521/XEPDB1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
 volumes:
   postgres_data:
   mysql_data:
   oracle_data:
   mongodb_data:
   rabbitmq_data:
+  keycloak_data:
 
 networks:
   app-network:

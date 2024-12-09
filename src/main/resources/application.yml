@@ -53,13 +53,13 @@ service:
   token-path: http://localhost:8080/realms/data-integration-realm/protocol/openid-connect/token
   company:
     client-id: mdm-company-conversion-api
-    client-secret: weCV7dPMZWRDkSZ4w5hrgVt2iV3epXUJ
+    client-secret: CEqjp0ALfVuYbN1UR8LK6SjqGD9kPUQd
     host: http://localhost:8081/api/company
   person:
     client-id: mdm-person-conversion-api
-    client-secret: qQugVPu7CoCKeOnVLR22OEX7ErYjS7J7
+    client-secret: 78vkfLhCtF0sOsJqvb6YdOjMuCxeIieg
     host: http://localhost:8082/api/person
   acl:
     client-id: data-integration-to-legacy-acl-api
-    client-secret: r17VYLAiUHmfrnXuQlmwL3RyMeFyuuX6
+    client-secret: jrMWMC5PIVA1estEbddibMKGr08KjxY0
     host: http://localhost:8083/api
