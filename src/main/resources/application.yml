@@ -6,38 +6,26 @@ spring:
       ddl-auto: update
     show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-#    database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/dataintegration
-    username: admin
-    password: password
+    url: ${DATA_INTEGRATION_API_DB_URL}
+    username: ${DATA_INTEGRATION_API_DB_USERNAME}
+    password: ${DATA_INTEGRATION_API_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
-#    url: jdbc:h2:file:/data/demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;MODE=PostgreSQL;
-#    username: sa
-#    driver-class-name: org.h2.Driver
-#    password: password
-#  h2:
-#    console:
-#      enabled: true
-#      path: /h2-console
-#      settings:
-#        trace: false
-#        web-allow-others: false
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${DATA_INTEGRATION_API_REDIS_HOST}
+      port: ${DATA_INTEGRATION_API_REDIS_PORT}
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/data-integration-realm
+          issuer-uri: ${KEYCLOAK_ISSUER_URI}
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: data-integration-adm
-    password: data-integration-adm
+    host: ${DATA_INTEGRATION_API_QUEUEMGR_HOST}
+    port: ${DATA_INTEGRATION_API_QUEUEMGR_PORT}
+    username: ${DATA_INTEGRATION_API_QUEUEMGR_USERNAME}
+    password: ${DATA_INTEGRATION_API_QUEUEMGR_PASSWORD}
 info:
   app:
     name: data-integration-api
@@ -50,16 +38,16 @@ logging:
     root: INFO
 
 service:
-  token-path: http://localhost:8080/realms/data-integration-realm/protocol/openid-connect/token
+  token-path: ${KEYCLOAK_TOKEN_PATH}
   company:
-    client-id: mdm-company-conversion-api
-    client-secret: CEqjp0ALfVuYbN1UR8LK6SjqGD9kPUQd
-    host: http://localhost:8081/api/company
+    client-id: ${MDM_COMPANY_CONVERSION_API_CLIENT_ID}
+    client-secret: ${MDM_COMPANY_CONVERSION_API_CLIENT_SECRET}
+    host: ${MDM_COMPANY_CONVERSION_API_HOST}
   person:
-    client-id: mdm-person-conversion-api
-    client-secret: 78vkfLhCtF0sOsJqvb6YdOjMuCxeIieg
-    host: http://localhost:8082/api/person
+    client-id: ${MDM_PERSON_CONVERSION_API_CLIENT_ID}
+    client-secret: ${MDM_PERSON_CONVERSION_API_CLIENT_SECRET}
+    host: ${MDM_PERSON_CONVERSION_API_HOST}
   acl:
-    client-id: data-integration-to-legacy-acl-api
-    client-secret: jrMWMC5PIVA1estEbddibMKGr08KjxY0
-    host: http://localhost:8083/api
+    client-id: ${DATA_INTEGRATION_ACL_API_CLIENT_ID}
+    client-secret: ${DATA_INTEGRATION_ACL_API_CLIENT_SECRET}
+    host: ${DATA_INTEGRATION_ACL_API_HOST}

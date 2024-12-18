@@ -10,4 +10,5 @@ public class DataIntegrationApplication {
 		SpringApplication.run(DataIntegrationApplication.class, args);
 	}
 
+
 }
